@@ -19,7 +19,6 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import model.entities.Authors;
 import model.entities.Publisher;
 import model.exceptions.ValidationException;
 import model.services.PublisherService;
@@ -98,6 +97,7 @@ public class PublisherFormController implements Initializable{
 			exception.addError("name", "Field can't be empty");
 		}
 		obj.setName(txtName.getText());
+		obj.setUrl(txtUrl.getText());
 		
 		
 		if(exception.getErrors().size() > 0) {
