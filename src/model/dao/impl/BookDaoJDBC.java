@@ -10,33 +10,33 @@ import java.util.List;
 
 import db.DB;
 import db.DbException;
-import db.DbIntegrityException;
-import model.dao.AuthorsDao;
-import model.entities.Authors;
+import model.dao.BookDao;
+import model.entities.Book;
+import model.entities.Publisher;
 
-public class AuthorsDaoJDBC implements AuthorsDao {
+public class BookDaoJDBC implements BookDao {
 
 	private Connection conn;
 	
-	public AuthorsDaoJDBC(Connection conn) {
+	public BookDaoJDBC(Connection conn) {
 		this.conn = conn;
 	}
-	
 	@Override
-	public Authors findById(Integer id) {
+	public Book findById(Integer id) {
 		PreparedStatement st = null;
 		ResultSet rs = null;
 		try {
 			st = conn.prepareStatement(
-				"SELECT * FROM Authors WHERE author_id = ?");
+					"SELECT  * FROM Books "
+					+ "WHERE isbn = ?");
+			
 			st.setInt(1, id);
 			rs = st.executeQuery();
 			if (rs.next()) {
-				Authors obj = new Authors();
-				obj.setId(rs.getInt("author_id"));
-				obj.setName(rs.getString("name"));
-				obj.setfName(rs.getString("fname"));
-				
+				Book obj = new Book();
+				obj.setTitle(rs.getString("title"));
+				obj.setIsbn(rs.getString("isbn"));
+				obj.setPrice(rs.getDouble("price"));
 				return obj;
 			}
 			return null;
@@ -49,25 +49,35 @@ public class AuthorsDaoJDBC implements AuthorsDao {
 			DB.closeResultSet(rs);
 		}
 	}
-
+	
 	@Override
-	public List<Authors> findAll() {
+	public List<Book> findAll() {
 		PreparedStatement st = null;
 		ResultSet rs = null;
 		try {
 			st = conn.prepareStatement(
-				"SELECT * FROM authors ORDER BY name");
+					" SELECT Books.*, publishers.name " + 
+					" from Books inner join publishers " + 
+					" on Books.publisher_id = publishers.publisher_id " + 
+					"ORDER BY title");
 			rs = st.executeQuery();
-
-			List<Authors> list = new ArrayList<>();
-
+			
+			List<Book> list = new ArrayList<>();
+			
+			
 			while (rs.next()) {
-				Authors obj = new Authors();
-				obj.setId(rs.getInt("author_id"));
-				obj.setfName(rs.getString("fname"));
-				obj.setName(rs.getString("name"));
+				Book obj = new Book();
+				Publisher pbs = new Publisher(); 
+				obj.setTitle(rs.getString("title"));
+				obj.setIsbn(rs.getString("isbn"));
+				pbs.setId(rs.getInt("publisher_id"));
+				pbs.setName(rs.getString("name"));
+				obj.setPublisher(pbs);
+				obj.setPrice(rs.getDouble("price"));
 				list.add(obj);
+				System.out.println(pbs.getId()+"-=="+obj.getPublisher());
 			}
+			
 			return list;
 		}
 		catch (SQLException e) {
@@ -78,29 +88,29 @@ public class AuthorsDaoJDBC implements AuthorsDao {
 			DB.closeResultSet(rs);
 		}
 	}
-
 	@Override
-	public void insert(Authors obj) {
+	public void insert(Book obj) {
 		PreparedStatement st = null;
 		try {
 			st = conn.prepareStatement(
-				"INSERT INTO Authors " +
-				"(name, fname) " +
-				"VALUES " +
-				"(?,?)", 
-				Statement.RETURN_GENERATED_KEYS);
-
-			st.setString(1, obj.getName());
-			st.setString(2, obj.getfName());
-
+					"INSERT INTO publishers "
+					+ "(title, price ) "
+					+ "VALUES "
+					+ "(?, ?)",
+					Statement.RETURN_GENERATED_KEYS);
+			
+			st.setString(1, obj.getTitle());
+			st.setDouble(2, obj.getPrice());
+			
 			int rowsAffected = st.executeUpdate();
 			
 			if (rowsAffected > 0) {
 				ResultSet rs = st.getGeneratedKeys();
 				if (rs.next()) {
-					int id = rs.getInt(1);
-					obj.setId(id);
+					String id = rs.getString(1);
+					obj.setIsbn(id);
 				}
+				DB.closeResultSet(rs);
 			}
 			else {
 				throw new DbException("Unexpected error! No rows affected!");
@@ -108,50 +118,48 @@ public class AuthorsDaoJDBC implements AuthorsDao {
 		}
 		catch (SQLException e) {
 			throw new DbException(e.getMessage());
-		} 
+		}
 		finally {
 			DB.closeStatement(st);
 		}
 	}
 
 	@Override
-	public void update(Authors obj) {
+	public void update(Book obj) {
 		PreparedStatement st = null;
 		try {
 			st = conn.prepareStatement(
-				"UPDATE Authors " +
-				"SET name = ? " +
-				", fname = ? " +
-				"WHERE author_id = ? ");
-
-			st.setString(1, obj.getName());
-			st.setString(2, obj.getfName());
-			st.setInt(3, obj.getId());
-
+					"UPDATE Books "
+					+ "SET title = ?, price = ? "
+					+ "WHERE publishers_id = ?");
+			
+			st.setString(1, obj.getTitle());
+			st.setDouble(2, obj.getPrice());
+		
+			
 			st.executeUpdate();
 		}
 		catch (SQLException e) {
 			throw new DbException(e.getMessage());
-		} 
+		}
 		finally {
 			DB.closeStatement(st);
 		}
 	}
 
 	@Override
-	public void deleteById(Integer id) {
+	public void deleteById(String id) {
 		PreparedStatement st = null;
 		try {
-			st = conn.prepareStatement(
-				"DELETE FROM Authors WHERE author_id = ?");
-
-			st.setInt(1, id);
-
+			st = conn.prepareStatement("DELETE FROM Books WHERE isbn = ?");
+			
+			st.setString(1, id);
+			
 			st.executeUpdate();
 		}
 		catch (SQLException e) {
-			throw new DbIntegrityException(e.getMessage());
-		} 
+			throw new DbException(e.getMessage());
+		}
 		finally {
 			DB.closeStatement(st);
 		}

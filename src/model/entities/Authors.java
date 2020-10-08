@@ -7,7 +7,7 @@ public class Authors implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private Integer id;
-	private String nome;
+	private String name;
 	private String fname;
 	
 	
@@ -16,7 +16,7 @@ public class Authors implements Serializable {
 
 	public Authors(Integer id, String name, String fName) {
 		this.id = id;
-		this.nome = name;
+		this.name = name;
 		this.fname = fName;
 	}
 
@@ -29,11 +29,11 @@ public class Authors implements Serializable {
 	}
 
 	public String getName() {
-		return nome;
+		return name;
 	}
 
 	public void setName(String name) {
-		this.nome = name;
+		this.name = name;
 	}
 	public String getfName() {
 		return fname;
@@ -70,7 +70,7 @@ public class Authors implements Serializable {
 
 	@Override
 	public String toString() {
-		return nome;
+		return name;
 	}
 
 	

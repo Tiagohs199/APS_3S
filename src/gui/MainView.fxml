@@ -14,9 +14,10 @@
               <menus>
                 <Menu mnemonicParsing="false" text="Registration">
                   <items>
-                    <MenuItem fx:id="menuItemSeller" mnemonicParsing="false" onAction="#onMenuItemSellerAction" text="Seller" />
                         <MenuItem fx:id="menuItemAuthors" mnemonicParsing="false" onAction="#onMenuItemAuthorsAction" text="Authors" />
                         <MenuItem fx:id="menuItemPublisher" mnemonicParsing="false" onAction="#onMenuItemPublisherAction" text="Publishers" />
+                        <MenuItem fx:id="menuItemBook" mnemonicParsing="false" onAction="#onMenuItemBookAction" text="Books" />
+                          <MenuItem fx:id="menuItemAuthorBook" mnemonicParsing="false" onAction="#onMenuItemAuthorBookAction" text="AuthorBook" />
                   </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Help">

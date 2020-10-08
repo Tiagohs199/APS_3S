@@ -10,33 +10,38 @@ import java.util.List;
 
 import db.DB;
 import db.DbException;
-import db.DbIntegrityException;
-import model.dao.AuthorsDao;
+import model.dao.AuthorBookDao;
+import model.entities.AuthorBook;
 import model.entities.Authors;
+import model.entities.Book;
 
-public class AuthorsDaoJDBC implements AuthorsDao {
+public class AuthorBookDaoJDBC implements AuthorBookDao {
 
 	private Connection conn;
 	
-	public AuthorsDaoJDBC(Connection conn) {
+	public AuthorBookDaoJDBC(Connection conn) {
 		this.conn = conn;
 	}
-	
 	@Override
-	public Authors findById(Integer id) {
+	public AuthorBook findById(Integer id) {
 		PreparedStatement st = null;
 		ResultSet rs = null;
 		try {
 			st = conn.prepareStatement(
-				"SELECT * FROM Authors WHERE author_id = ?");
+					"SELECT * FROM BooksAuthors  "
+					+ "WHERE seq_no = ?");
+			
 			st.setInt(1, id);
 			rs = st.executeQuery();
 			if (rs.next()) {
-				Authors obj = new Authors();
-				obj.setId(rs.getInt("author_id"));
-				obj.setName(rs.getString("name"));
-				obj.setfName(rs.getString("fname"));
-				
+				AuthorBook obj = new AuthorBook();
+				Book book = new Book();
+				Authors author = new Authors();
+				obj.setSeq_no(rs.getInt("seq_no"));
+				book.setIsbn(rs.getString("isbn"));
+				author.setId(Integer.valueOf(rs.getString("author_id")));
+				obj.setAuthor_id(author);
+				obj.setIsbn(book);
 				return obj;
 			}
 			return null;
@@ -49,23 +54,29 @@ public class AuthorsDaoJDBC implements AuthorsDao {
 			DB.closeResultSet(rs);
 		}
 	}
-
+	
 	@Override
-	public List<Authors> findAll() {
+	public List<AuthorBook> findAll() {
 		PreparedStatement st = null;
 		ResultSet rs = null;
 		try {
 			st = conn.prepareStatement(
-				"SELECT * FROM authors ORDER BY name");
+					"SELECT * FROM BooksAuthors "
+					);
 			rs = st.executeQuery();
-
-			List<Authors> list = new ArrayList<>();
-
+			
+			List<AuthorBook> list = new ArrayList<>();
+			
+			
 			while (rs.next()) {
-				Authors obj = new Authors();
-				obj.setId(rs.getInt("author_id"));
-				obj.setfName(rs.getString("fname"));
-				obj.setName(rs.getString("name"));
+				AuthorBook obj = new AuthorBook();
+				Book book = new Book();
+				Authors author = new Authors();
+				obj.setSeq_no(rs.getInt("seq_no"));
+				book.setIsbn(rs.getString("isbn"));
+				author.setId(Integer.valueOf(rs.getString("author_id")));
+				obj.setAuthor_id(author);
+				obj.setIsbn(book);
 				list.add(obj);
 			}
 			return list;
@@ -78,29 +89,28 @@ public class AuthorsDaoJDBC implements AuthorsDao {
 			DB.closeResultSet(rs);
 		}
 	}
-
 	@Override
-	public void insert(Authors obj) {
+	public void insert(AuthorBook obj) {
 		PreparedStatement st = null;
 		try {
 			st = conn.prepareStatement(
-				"INSERT INTO Authors " +
-				"(name, fname) " +
-				"VALUES " +
-				"(?,?)", 
-				Statement.RETURN_GENERATED_KEYS);
-
-			st.setString(1, obj.getName());
-			st.setString(2, obj.getfName());
-
+					"INSERT INTO BooksAuthors "
+					+ "(seq_no) "
+					+ "VALUES "
+					+ "(?)",
+					Statement.RETURN_GENERATED_KEYS);
+			
+			st.setInt(1, obj.getSeq_no());
+	
 			int rowsAffected = st.executeUpdate();
 			
 			if (rowsAffected > 0) {
 				ResultSet rs = st.getGeneratedKeys();
 				if (rs.next()) {
 					int id = rs.getInt(1);
-					obj.setId(id);
+					obj.setSeq_no(id);
 				}
+				DB.closeResultSet(rs);
 			}
 			else {
 				throw new DbException("Unexpected error! No rows affected!");
@@ -108,31 +118,28 @@ public class AuthorsDaoJDBC implements AuthorsDao {
 		}
 		catch (SQLException e) {
 			throw new DbException(e.getMessage());
-		} 
+		}
 		finally {
 			DB.closeStatement(st);
 		}
 	}
 
 	@Override
-	public void update(Authors obj) {
+	public void update(AuthorBook obj) {
 		PreparedStatement st = null;
 		try {
 			st = conn.prepareStatement(
-				"UPDATE Authors " +
-				"SET name = ? " +
-				", fname = ? " +
-				"WHERE author_id = ? ");
-
-			st.setString(1, obj.getName());
-			st.setString(2, obj.getfName());
-			st.setInt(3, obj.getId());
-
+					"UPDATE BooksAuthors "
+					+ "SET seq_no = ? "
+					);
+			
+			st.setInt(1, obj.getSeq_no());
+		
 			st.executeUpdate();
 		}
 		catch (SQLException e) {
 			throw new DbException(e.getMessage());
-		} 
+		}
 		finally {
 			DB.closeStatement(st);
 		}
@@ -142,16 +149,15 @@ public class AuthorsDaoJDBC implements AuthorsDao {
 	public void deleteById(Integer id) {
 		PreparedStatement st = null;
 		try {
-			st = conn.prepareStatement(
-				"DELETE FROM Authors WHERE author_id = ?");
-
+			st = conn.prepareStatement("DELETE FROM BooksAuthors WHERE seq_no = ?");
+			
 			st.setInt(1, id);
-
+			
 			st.executeUpdate();
 		}
 		catch (SQLException e) {
-			throw new DbIntegrityException(e.getMessage());
-		} 
+			throw new DbException(e.getMessage());
+		}
 		finally {
 			DB.closeStatement(st);
 		}
