@@ -71,11 +71,9 @@ public class BookDaoJDBC implements BookDao {
 				obj.setTitle(rs.getString("title"));
 				obj.setIsbn(rs.getString("isbn"));
 				pbs.setId(rs.getInt("publisher_id"));
-				pbs.setName(rs.getString("name"));
 				obj.setPublisher(pbs);
 				obj.setPrice(rs.getDouble("price"));
 				list.add(obj);
-				System.out.println(pbs.getId()+"-=="+obj.getPublisher());
 			}
 			
 			return list;
@@ -93,14 +91,16 @@ public class BookDaoJDBC implements BookDao {
 		PreparedStatement st = null;
 		try {
 			st = conn.prepareStatement(
-					"INSERT INTO publishers "
-					+ "(title, price ) "
+					"INSERT INTO books "
+					+ "(title, isbn, price ) "
 					+ "VALUES "
-					+ "(?, ?)",
+					+ "(?, ?, ?)",
 					Statement.RETURN_GENERATED_KEYS);
 			
 			st.setString(1, obj.getTitle());
-			st.setDouble(2, obj.getPrice());
+			st.setString(2, obj.getIsbn());
+			//st.setObject(3, obj.getPublisher());
+			st.setDouble(3, obj.getPrice());
 			
 			int rowsAffected = st.executeUpdate();
 			
@@ -131,10 +131,11 @@ public class BookDaoJDBC implements BookDao {
 			st = conn.prepareStatement(
 					"UPDATE Books "
 					+ "SET title = ?, price = ? "
-					+ "WHERE publishers_id = ?");
+					+ "WHERE publisher_id = ?");
 			
 			st.setString(1, obj.getTitle());
 			st.setDouble(2, obj.getPrice());
+			st.setObject(3, obj.getPublisher());
 		
 			
 			st.executeUpdate();

@@ -29,14 +29,14 @@ public class PublisherDaoJDBC implements PublisherDao {
 		ResultSet rs = null;
 		try {
 			st = conn.prepareStatement(
-					"SELECT publishers * FROM publishers "
+					"SELECT  * FROM publishers "
 					+ "WHERE publisher_id = ?");
 			
 			st.setInt(1, id);
 			rs = st.executeQuery();
 			if (rs.next()) {
 				Publisher obj = new Publisher();
-				obj.setId(rs.getInt("id"));
+				obj.setId(rs.getInt("publisher_id"));
 				obj.setName(rs.getString("name"));
 				obj.setUrl(rs.getString("url"));
 				return obj;
@@ -125,11 +125,11 @@ public class PublisherDaoJDBC implements PublisherDao {
 			st = conn.prepareStatement(
 					"UPDATE publishers "
 					+ "SET name = ?, url = ? "
-					+ "WHERE publishers_id = ?");
+					+ "WHERE publisher_id = ?");
 			
 			st.setString(1, obj.getName());
 			st.setString(2, obj.getUrl());
-		
+			st.setInt(3,  obj.getId());
 			
 			st.executeUpdate();
 		}
@@ -145,7 +145,7 @@ public class PublisherDaoJDBC implements PublisherDao {
 	public void deleteById(Integer id) {
 		PreparedStatement st = null;
 		try {
-			st = conn.prepareStatement("DELETE FROM publishers WHERE publishers_id = ?");
+			st = conn.prepareStatement("DELETE FROM publishers WHERE publisher_id = ?");
 			
 			st.setInt(1, id);
 			

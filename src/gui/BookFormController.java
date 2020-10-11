@@ -23,15 +23,12 @@ import model.entities.Book;
 import model.entities.Publisher;
 import model.exceptions.ValidationException;
 import model.services.BookService;
-import model.services.PublisherService;
 
 public class BookFormController implements Initializable{
 	
 	private Book entity;
 	
 	private BookService service;
-	
-	private Publisher entity2 = new Publisher();
 	
 	private List<DataChangeListener> dataChangeListeners = new ArrayList<>();
 	
@@ -85,6 +82,7 @@ public class BookFormController implements Initializable{
 		catch( DbException e) {
 			Alerts.showAlerts("Error saving object", null,e.getMessage() , AlertType.ERROR);
 		}
+		
 	}
 	
 	private void notifyDataChangeListeners() {
@@ -95,14 +93,16 @@ public class BookFormController implements Initializable{
 	}
 	private Book getFormData() {
 		Book obj = new Book();
-		
 		ValidationException exception = new ValidationException("Validation error");
 		
 		obj.setIsbn(txtIsbn.getText());
-		if(txtIsbn.getText() == null || txtIsbn.getText().trim().equals("")) {
+		if(txtTitle.getText() == null || txtTitle.getText().trim().equals("")) {
 			exception.addError("name", "Field can't be empty");
 		}
+		
 		obj.setTitle(txtTitle.getText());
+		obj.setIsbn(txtIsbn.getText());
+		//obj.setPublisher(txtPublisher_id.getText());
 		obj.setPrice(Double.valueOf(txtPrice.getText()));
 		
 		
@@ -126,17 +126,15 @@ public class BookFormController implements Initializable{
 		Contraints.setTextFielsMaxLength(txtTitle, 20);
 		Contraints.setTextFieldDouble(txtPrice);
 		Contraints.setTextFielsMaxLength(txtIsbn, 30);
-		Contraints.setTextFieldInteger(txtPublisher_id);
+		//Contraints.setTextFieldInteger(txtPublisher_id);
 		
 	}
 	public void updateFormData() {
 		if(entity == null) {
 			throw new IllegalStateException("Entity was null");
 		}
-		
 		txtTitle.setText(entity.getTitle());
 		txtIsbn.setText(entity.getIsbn());
-		txtPublisher_id.setText(String.valueOf(entity2.getId()));
 		txtPrice.setText(String.valueOf(entity.getPrice()));
 	
 	}

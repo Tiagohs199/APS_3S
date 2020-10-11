@@ -45,7 +45,6 @@ public class AuthorBookListController implements Initializable {
 	private TableColumn<AuthorBook, String> TableColumnIsbn;
 	@FXML
 	private TableColumn<AuthorBook, AuthorBook> tableColumnEdit;
-	
 	@FXML
 	private TableColumn<AuthorBook, AuthorBook> tableColumnRemove;
 	
@@ -79,7 +78,7 @@ public class AuthorBookListController implements Initializable {
 	
 	private void initializeAuthorBookNodes() {
 		TableColumnSeq_no.setCellValueFactory(new PropertyValueFactory<>("seq_no"));
-		TableColumnAuthor_id.setCellValueFactory(new PropertyValueFactory<>("a_id"));
+		TableColumnAuthor_id.setCellValueFactory(new PropertyValueFactory<>("author_id"));
 		TableColumnIsbn.setCellValueFactory(new PropertyValueFactory<>("isbn"));
 		
 		
@@ -151,6 +150,7 @@ public class AuthorBookListController implements Initializable {
 		tableColumnRemove.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
 		tableColumnRemove.setCellFactory(param -> new TableCell<AuthorBook, AuthorBook>(){
 			private final Button button = new Button("remove");
+			
 			@Override
 			protected void updateItem(AuthorBook obj, boolean empty) {
 				super.updateItem(obj, empty);

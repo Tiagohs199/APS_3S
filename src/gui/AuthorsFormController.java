@@ -36,7 +36,7 @@ public class AuthorsFormController implements Initializable{
 	@FXML
 	private TextField txtName;
 	@FXML
-	private TextField txtfName;
+	private TextField txtFname;
 	@FXML
 	private Label labelErrorName;
 	@FXML
@@ -99,7 +99,7 @@ public class AuthorsFormController implements Initializable{
 			exception.addError("name", "Field can't be empty");
 		}
 		obj.setName(txtName.getText());
-		obj.setfName(txtfName.getText());
+		obj.setFname(txtFname.getText());
 		
 		if(exception.getErrors().size() > 0) {
 			throw exception;
@@ -122,7 +122,7 @@ public class AuthorsFormController implements Initializable{
 	private void initializeNodes() {
 		Contraints.setTextFieldInteger(txtId);
 		Contraints.setTextFielsMaxLength(txtName, 20);
-		Contraints.setTextFielsMaxLength(txtfName, 20);
+		Contraints.setTextFielsMaxLength(txtFname, 20);
 	}
 	
 	public void updateFormData() {
@@ -132,7 +132,7 @@ public class AuthorsFormController implements Initializable{
 		
 		txtId.setText(String.valueOf(entity.getId()));
 		txtName.setText(entity.getName());
-		txtfName.setText(entity.getfName());
+		txtFname.setText(entity.getFname());
 		
 	}
 	

@@ -35,7 +35,7 @@ public class AuthorsDaoJDBC implements AuthorsDao {
 				Authors obj = new Authors();
 				obj.setId(rs.getInt("author_id"));
 				obj.setName(rs.getString("name"));
-				obj.setfName(rs.getString("fname"));
+				obj.setFname(rs.getString("fname"));
 				
 				return obj;
 			}
@@ -64,8 +64,8 @@ public class AuthorsDaoJDBC implements AuthorsDao {
 			while (rs.next()) {
 				Authors obj = new Authors();
 				obj.setId(rs.getInt("author_id"));
-				obj.setfName(rs.getString("fname"));
 				obj.setName(rs.getString("name"));
+				obj.setFname(rs.getString("fname"));
 				list.add(obj);
 			}
 			return list;
@@ -91,7 +91,7 @@ public class AuthorsDaoJDBC implements AuthorsDao {
 				Statement.RETURN_GENERATED_KEYS);
 
 			st.setString(1, obj.getName());
-			st.setString(2, obj.getfName());
+			st.setString(2, obj.getFname());
 
 			int rowsAffected = st.executeUpdate();
 			
@@ -120,12 +120,11 @@ public class AuthorsDaoJDBC implements AuthorsDao {
 		try {
 			st = conn.prepareStatement(
 				"UPDATE Authors " +
-				"SET name = ? " +
-				", fname = ? " +
-				"WHERE author_id = ? ");
+				"SET name = ?, fname = ?  "
+				+ "WHERE author_id = ? ");
 
 			st.setString(1, obj.getName());
-			st.setString(2, obj.getfName());
+			st.setString(2, obj.getFname());
 			st.setInt(3, obj.getId());
 
 			st.executeUpdate();

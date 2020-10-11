@@ -81,6 +81,6 @@ public class Book implements Serializable {
 
 	@Override
 	public String toString() {
-		return title;
+		return isbn;
 	}
 }
