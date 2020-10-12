@@ -40,6 +40,8 @@ public class AuthorsFormController implements Initializable{
 	@FXML
 	private Label labelErrorName;
 	@FXML
+	private Label labelErrorFname;
+	@FXML
 	private Button btSave;
 	@FXML
 	private Button btCancel;
@@ -79,16 +81,14 @@ public class AuthorsFormController implements Initializable{
 		catch( DbException e) {
 			Alerts.showAlerts("Error saving object", null,e.getMessage() , AlertType.ERROR);
 		}
-		
-		
 	}
+	
 	private void notifyDataChangeListeners() {
 		for (DataChangeListener listener : dataChangeListeners) {
 			listener.onDataChange();
 		}
 		
 	}
-
 	private Authors getFormData() {
 		Authors obj = new Authors();
 		

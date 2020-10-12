@@ -37,19 +37,14 @@ public class AuthorsListController implements Initializable, DataChangeListener{
 	private AuthorsService service;
 	@FXML
 	private TableView<Authors> tableViewAuthors;
-	
 	@FXML
 	private TableColumn<Authors, Integer> tableColumnId;
-	
 	@FXML
 	private TableColumn<Authors, String> tableColumnName;
-	
 	@FXML
 	private TableColumn<Authors, String> tableColumnfName;
-	
 	@FXML
 	private TableColumn<Authors, Authors> tableColumnEdit;
-	
 	@FXML
 	private TableColumn<Authors, Authors> tableColumnRemove;
 	

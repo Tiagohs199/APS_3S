@@ -34,14 +34,10 @@ public class AuthorBookDaoJDBC implements AuthorBookDao {
 			st.setInt(1, id);
 			rs = st.executeQuery();
 			if (rs.next()) {
-				AuthorBook obj = new AuthorBook();
-				Book book = new Book();
-				Authors author = new Authors();
-				obj.setSeq_no(rs.getInt("seq_no"));
-				book.setIsbn(rs.getString("isbn"));
-				author.setId(Integer.valueOf(rs.getString("author_id")));
-				obj.setAuthor_id(author);
-				obj.setIsbn(book);
+				
+				Book book = instantiateBook(rs);
+				Authors author = instantiateAuthors(rs);
+				AuthorBook obj = instantiateAuthorBook(rs, author, book);
 				return obj;
 			}
 			return null;
@@ -69,14 +65,10 @@ public class AuthorBookDaoJDBC implements AuthorBookDao {
 			
 			
 			while (rs.next()) {
-				AuthorBook obj = new AuthorBook();
-				Book book = new Book();
-				Authors author = new Authors();
-				obj.setSeq_no(rs.getInt("seq_no"));
-				book.setIsbn(rs.getString("isbn"));
-				author.setId(Integer.valueOf(rs.getString("author_id")));
-				obj.setAuthor_id(author);
-				obj.setIsbn(book);
+				
+				Book book = instantiateBook(rs);
+				Authors author = instantiateAuthors(rs);
+				AuthorBook obj = instantiateAuthorBook(rs, author, book);
 				list.add(obj);
 			}
 			return list;
@@ -161,5 +153,29 @@ public class AuthorBookDaoJDBC implements AuthorBookDao {
 		finally {
 			DB.closeStatement(st);
 		}
+	}
+	private AuthorBook instantiateAuthorBook(ResultSet rs, Authors authors, Book book) throws SQLException {
+		AuthorBook obj = new AuthorBook();
+		obj.setSeq_no(rs.getInt("seq_no"));
+		obj.setAuthor_id(authors);
+		obj.setIsbn(book);
+		
+		return obj;
+	}
+
+	private Authors instantiateAuthors(ResultSet rs) throws SQLException {
+		Authors authors = new Authors();
+		authors.setId(rs.getInt("author_id"));
+//		authors.setName(rs.getString("name"));
+//		authors.setFname(rs.getString("fname"));
+		
+		return authors;
+	}
+	private Book instantiateBook(ResultSet rs) throws SQLException {
+		Book book = new Book();
+		book.setIsbn(rs.getString("isbn"));
+		
+		
+		return book;
 	}
 }

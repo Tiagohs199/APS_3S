@@ -41,8 +41,10 @@ public class BookFormController implements Initializable{
 	@FXML
 	private TextField txtPrice;
 	@FXML
-	private Label labelErrorName;
-
+	private Label labelErrorTitle;
+	@FXML
+	private Label labelErrorIsbn;
+	
 	@FXML
 	private Button btSave;
 	@FXML
@@ -99,10 +101,11 @@ public class BookFormController implements Initializable{
 		if(txtTitle.getText() == null || txtTitle.getText().trim().equals("")) {
 			exception.addError("name", "Field can't be empty");
 		}
-		
+		Publisher publisher = new Publisher();
 		obj.setTitle(txtTitle.getText());
 		obj.setIsbn(txtIsbn.getText());
-		//obj.setPublisher(txtPublisher_id.getText());
+		publisher.setId(Integer.valueOf(txtPublisher_id.getText()));
+		obj.setPublisher(publisher);
 		obj.setPrice(Double.valueOf(txtPrice.getText()));
 		
 		
@@ -126,7 +129,7 @@ public class BookFormController implements Initializable{
 		Contraints.setTextFielsMaxLength(txtTitle, 20);
 		Contraints.setTextFieldDouble(txtPrice);
 		Contraints.setTextFielsMaxLength(txtIsbn, 30);
-		//Contraints.setTextFieldInteger(txtPublisher_id);
+		Contraints.setTextFieldInteger(txtPublisher_id);
 		
 	}
 	public void updateFormData() {
@@ -134,15 +137,16 @@ public class BookFormController implements Initializable{
 			throw new IllegalStateException("Entity was null");
 		}
 		txtTitle.setText(entity.getTitle());
-		txtIsbn.setText(entity.getIsbn());
 		txtPrice.setText(String.valueOf(entity.getPrice()));
-	
+		txtIsbn.setText(entity.getIsbn());
+		txtPublisher_id.setText(String.valueOf(entity.getPublisher()));
 	}
 	private void setErrorMessage(Map<String, String> error) {
 		Set<String> fields = error.keySet();
 		
 		if (fields.contains("name")) {
-			labelErrorName.setText(error.get("name"));
+			labelErrorTitle.setText(error.get("name"));
 		}
 	}
+	
 }

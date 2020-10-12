@@ -35,10 +35,7 @@ public class PublisherDaoJDBC implements PublisherDao {
 			st.setInt(1, id);
 			rs = st.executeQuery();
 			if (rs.next()) {
-				Publisher obj = new Publisher();
-				obj.setId(rs.getInt("publisher_id"));
-				obj.setName(rs.getString("name"));
-				obj.setUrl(rs.getString("url"));
+				Publisher obj = instantiatePublisher(rs);
 				return obj;
 			}
 			return null;
@@ -66,10 +63,7 @@ public class PublisherDaoJDBC implements PublisherDao {
 			
 			
 			while (rs.next()) {
-				Publisher obj = new Publisher();
-				obj.setId(rs.getInt("publisher_id"));
-				obj.setName(rs.getString("name"));
-				obj.setUrl(rs.getString("url"));
+				Publisher obj = instantiatePublisher(rs);
 				list.add(obj);
 			}
 			return list;
@@ -104,7 +98,7 @@ public class PublisherDaoJDBC implements PublisherDao {
 					int id = rs.getInt(1);
 					obj.setId(id);
 				}
-				DB.closeResultSet(rs);
+				//DB.closeResultSet(rs);
 			}
 			else {
 				throw new DbException("Unexpected error! No rows affected!");
@@ -157,5 +151,12 @@ public class PublisherDaoJDBC implements PublisherDao {
 		finally {
 			DB.closeStatement(st);
 		}
+	}
+	private Publisher instantiatePublisher(ResultSet rs) throws SQLException {
+		Publisher publisher = new Publisher();
+		publisher.setId(rs.getInt("publisher_id"));
+		publisher.setName(rs.getString("name"));
+		publisher.setUrl(rs.getString("url"));
+		return publisher;
 	}
 }

@@ -8,6 +8,7 @@ import java.util.ResourceBundle;
 
 import application.Main;
 import db.DbIntegrityException;
+import gui.listeners.DataChangeListener;
 import gui.util.Alerts;
 import gui.util.Utils;
 import javafx.beans.property.ReadOnlyObjectWrapper;
@@ -28,7 +29,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import model.entities.Authors;
 import model.entities.Publisher;
 import model.services.PublisherService;
 
@@ -46,7 +46,6 @@ public class PublisherListController implements Initializable {
 	private TableColumn<Publisher, String> TableColumnUrl;
 	@FXML
 	private TableColumn<Publisher, Publisher> tableColumnEdit;
-	
 	@FXML
 	private TableColumn<Publisher, Publisher> tableColumnRemove;
 	
@@ -75,10 +74,10 @@ public class PublisherListController implements Initializable {
 	
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
-		initializePublisherNodes();
+		initializeNodes();
 	}
 	
-	private void initializePublisherNodes() {
+	private void initializeNodes() {
 		TableColumnId.setCellValueFactory(new PropertyValueFactory<>("id"));
 		TableColumnName.setCellValueFactory(new PropertyValueFactory<>("name"));
 		TableColumnUrl.setCellValueFactory(new PropertyValueFactory<>("url"));
@@ -108,6 +107,7 @@ public class PublisherListController implements Initializable {
 			PublisherFormController controller = loader.getController();
 			controller.setPublisher(obj);
 			controller.setPublisherService(new PublisherService());
+			//controller.subscribeDataChangeListener(this);
 			controller.updateFormData();
 			
 			Stage dialogStage = new Stage();

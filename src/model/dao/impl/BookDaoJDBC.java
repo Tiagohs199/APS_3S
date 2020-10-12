@@ -11,6 +11,8 @@ import java.util.List;
 import db.DB;
 import db.DbException;
 import model.dao.BookDao;
+import model.entities.AuthorBook;
+import model.entities.Authors;
 import model.entities.Book;
 import model.entities.Publisher;
 
@@ -33,10 +35,8 @@ public class BookDaoJDBC implements BookDao {
 			st.setInt(1, id);
 			rs = st.executeQuery();
 			if (rs.next()) {
-				Book obj = new Book();
-				obj.setTitle(rs.getString("title"));
-				obj.setIsbn(rs.getString("isbn"));
-				obj.setPrice(rs.getDouble("price"));
+				Publisher publisher = instantiatePublisher(rs);
+				Book obj = instantiateBook(rs, publisher);
 				return obj;
 			}
 			return null;
@@ -66,13 +66,9 @@ public class BookDaoJDBC implements BookDao {
 			
 			
 			while (rs.next()) {
-				Book obj = new Book();
-				Publisher pbs = new Publisher(); 
-				obj.setTitle(rs.getString("title"));
-				obj.setIsbn(rs.getString("isbn"));
-				pbs.setId(rs.getInt("publisher_id"));
-				obj.setPublisher(pbs);
-				obj.setPrice(rs.getDouble("price"));
+				
+				Publisher publisher = instantiatePublisher(rs); 
+				Book obj = instantiateBook(rs, publisher);
 				list.add(obj);
 			}
 			
@@ -94,13 +90,13 @@ public class BookDaoJDBC implements BookDao {
 					"INSERT INTO books "
 					+ "(title, isbn, price ) "
 					+ "VALUES "
-					+ "(?, ?, ?)",
+					+ "(?, ?,?,?)",
 					Statement.RETURN_GENERATED_KEYS);
 			
 			st.setString(1, obj.getTitle());
 			st.setString(2, obj.getIsbn());
-			//st.setObject(3, obj.getPublisher());
-			st.setDouble(3, obj.getPrice());
+			st.setObject(3, obj.getPublisher());
+			st.setDouble(4, obj.getPrice());
 			
 			int rowsAffected = st.executeUpdate();
 			
@@ -110,7 +106,6 @@ public class BookDaoJDBC implements BookDao {
 					String id = rs.getString(1);
 					obj.setIsbn(id);
 				}
-				DB.closeResultSet(rs);
 			}
 			else {
 				throw new DbException("Unexpected error! No rows affected!");
@@ -130,12 +125,13 @@ public class BookDaoJDBC implements BookDao {
 		try {
 			st = conn.prepareStatement(
 					"UPDATE Books "
-					+ "SET title = ?, price = ? "
-					+ "WHERE publisher_id = ?");
+					+ "SET title = ?, price = ?"
+					+ "WHERE isbn = ?");
 			
 			st.setString(1, obj.getTitle());
 			st.setDouble(2, obj.getPrice());
-			st.setObject(3, obj.getPublisher());
+			st.setString(3, obj.getIsbn());
+			st.setObject(3, obj.getPublisher() );
 		
 			
 			st.executeUpdate();
@@ -164,5 +160,21 @@ public class BookDaoJDBC implements BookDao {
 		finally {
 			DB.closeStatement(st);
 		}
+	}
+	
+	private Publisher instantiatePublisher(ResultSet rs) throws SQLException {
+		Publisher publisher = new Publisher();
+		publisher.setId(rs.getInt("publisher_id"));
+		
+		return publisher;
+	}
+	private Book instantiateBook(ResultSet rs, Publisher publisher) throws SQLException {
+		Book book = new Book();
+		book.setTitle(rs.getString("title"));
+		book.setIsbn(rs.getString("isbn"));
+		book.setPublisher(publisher);
+		book.setPrice(rs.getDouble("price"));
+		
+		return book;
 	}
 }

@@ -13,6 +13,7 @@ import db.DbException;
 import db.DbIntegrityException;
 import model.dao.AuthorsDao;
 import model.entities.Authors;
+import model.entities.Book;
 
 public class AuthorsDaoJDBC implements AuthorsDao {
 
@@ -28,14 +29,12 @@ public class AuthorsDaoJDBC implements AuthorsDao {
 		ResultSet rs = null;
 		try {
 			st = conn.prepareStatement(
-				"SELECT * FROM Authors WHERE author_id = ?");
+				"SELECT * FROM Authors "
+				+ "WHERE author_id = ?");
 			st.setInt(1, id);
 			rs = st.executeQuery();
 			if (rs.next()) {
-				Authors obj = new Authors();
-				obj.setId(rs.getInt("author_id"));
-				obj.setName(rs.getString("name"));
-				obj.setFname(rs.getString("fname"));
+				Authors obj = instantiateAuthors(rs);
 				
 				return obj;
 			}
@@ -62,10 +61,8 @@ public class AuthorsDaoJDBC implements AuthorsDao {
 			List<Authors> list = new ArrayList<>();
 
 			while (rs.next()) {
-				Authors obj = new Authors();
-				obj.setId(rs.getInt("author_id"));
-				obj.setName(rs.getString("name"));
-				obj.setFname(rs.getString("fname"));
+				Authors obj = instantiateAuthors(rs);
+				
 				list.add(obj);
 			}
 			return list;
@@ -154,5 +151,13 @@ public class AuthorsDaoJDBC implements AuthorsDao {
 		finally {
 			DB.closeStatement(st);
 		}
+	}
+	private Authors instantiateAuthors(ResultSet rs) throws SQLException {
+		Authors authors = new Authors();
+		authors.setId(rs.getInt("author_id"));
+		authors.setName(rs.getString("name"));
+		authors.setFname(rs.getString("fname"));
+		
+		return authors;
 	}
 }

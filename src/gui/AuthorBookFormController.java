@@ -29,10 +29,6 @@ public class AuthorBookFormController implements Initializable{
 	
 	private AuthorBook entity;
 	
-	private Authors entity2 = new Authors();
-	
-	private Book entity3 = new Book();
-	
 	private AuthorBookService service;
 	
 	private List<DataChangeListener> dataChangeListeners = new ArrayList<>();
@@ -135,8 +131,8 @@ public class AuthorBookFormController implements Initializable{
 			throw new IllegalStateException("Entity was null");
 		}
 		txtseq_no.setText(String.valueOf(entity.getSeq_no()));
-		txtIsbn.setText(entity3.getIsbn());
-		txtAuthorId.setText(String.valueOf(entity2.getId()));
+		txtIsbn.setText(String.valueOf(entity.getIsbn()));
+		txtAuthorId.setText(String.valueOf(entity.getAuthor_id()));
 	
 	}
 	private void setErrorMessage(Map<String, String> error) {

@@ -39,7 +39,8 @@ public class PublisherFormController implements Initializable{
 	private TextField txtUrl;
 	@FXML
 	private Label labelErrorName;
-
+	@FXML
+	private Label labelErrorUrl;
 	@FXML
 	private Button btSave;
 	@FXML
