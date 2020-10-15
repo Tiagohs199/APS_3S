@@ -88,7 +88,7 @@ public class BookDaoJDBC implements BookDao {
 		try {
 			st = conn.prepareStatement(
 					"INSERT INTO books "
-					+ "(title, isbn, price ) "
+					+ "(title, isbn, price, publisher_id ) "
 					+ "VALUES "
 					+ "(?, ?,?,?)",
 					Statement.RETURN_GENERATED_KEYS);
@@ -131,7 +131,7 @@ public class BookDaoJDBC implements BookDao {
 			st.setString(1, obj.getTitle());
 			st.setDouble(2, obj.getPrice());
 			st.setString(3, obj.getIsbn());
-			st.setObject(3, obj.getPublisher() );
+			st.setObject(3, obj.getPublisher());
 		
 			
 			st.executeUpdate();
