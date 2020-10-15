@@ -46,6 +46,7 @@ public class BookListController implements Initializable {
 	private TableColumn<Book, Integer> TableColumnIsbn;
 	@FXML
 	private TableColumn<Book, Double> tableColumnPrice;
+	
 	@FXML
 	private TableColumn<Book, Book> tableColumnEdit;
 	@FXML

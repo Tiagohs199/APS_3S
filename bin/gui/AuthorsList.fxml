@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="281.0" prefWidth="416.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.AuthorsListController">
+<VBox prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.AuthorsListController">
    <children>
       <Label text="Authors Registration">
          <font>
@@ -22,13 +22,14 @@
       <ToolBar prefHeight="40.0" prefWidth="200.0">
         <items>
           <Button fx:id="btNew" mnemonicParsing="false" onAction="#onBtNewAction" text="New" />
+            <Button fx:id="btBack" mnemonicParsing="false" onAction="#onBtBackAction" text="Back" />
         </items>
       </ToolBar>
       <TableView fx:id="tableViewAuthors" prefHeight="200.0" prefWidth="200.0">
         <columns>
           <TableColumn fx:id="tableColumnId" onEditCommit="#updateTableView" onEditStart="#updateTableView" prefWidth="75.0" text="Id" />
-          <TableColumn fx:id="tableColumnName" onEditCommit="#updateTableView" onEditStart="#updateTableView" prefWidth="75.0" text="Name" />
-            <TableColumn fx:id="tableColumnfName" onEditCommit="#updateTableView" onEditStart="#updateTableView" prefWidth="75.0" text="First Name" />
+          <TableColumn fx:id="tableColumnName" onEditCommit="#updateTableView" onEditStart="#updateTableView" prefWidth="100.0" text="Name" />
+            <TableColumn fx:id="tableColumnfName" onEditCommit="#updateTableView" onEditStart="#updateTableView" prefWidth="100.0" text="First Name" />
             <TableColumn fx:id="tableColumnEdit" prefWidth="75.0" />
             <TableColumn fx:id="tableColumnRemove" prefWidth="75.0" />
         </columns>

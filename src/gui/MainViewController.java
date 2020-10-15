@@ -20,7 +20,6 @@ import model.services.AuthorBookService;
 import model.services.AuthorsService;
 import model.services.BookService;
 import model.services.PublisherService;
-import model.services.SellerService;
 
 public class MainViewController implements Initializable {
 	

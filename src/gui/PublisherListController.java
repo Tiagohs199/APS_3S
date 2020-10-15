@@ -44,6 +44,7 @@ public class PublisherListController implements Initializable {
 	private TableColumn<Publisher, String> TableColumnName;
 	@FXML
 	private TableColumn<Publisher, String> TableColumnUrl;
+	
 	@FXML
 	private TableColumn<Publisher, Publisher> tableColumnEdit;
 	@FXML

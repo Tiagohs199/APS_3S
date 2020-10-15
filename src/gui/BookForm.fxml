@@ -10,25 +10,22 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane prefHeight="423.0" prefWidth="496.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.BookFormController">
+<AnchorPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.BookFormController">
    <children>
-      <GridPane prefHeight="411.0" prefWidth="587.0" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="20.0">
+      <GridPane prefHeight="200.0" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="15.0">
         <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="112.0" minWidth="10.0" prefWidth="112.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="349.0" minWidth="10.0" prefWidth="319.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="515.0" minWidth="10.0" prefWidth="206.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="189.0" minWidth="10.0" prefWidth="80.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="356.0" minWidth="10.0" prefWidth="279.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="272.0" minWidth="10.0" prefWidth="139.0" />
         </columnConstraints>
         <rowConstraints>
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <TextField fx:id="txtTitle" GridPane.columnIndex="1" />
             <Label text="Title">
                <padding>
                   <Insets left="10.0" />
@@ -44,11 +41,6 @@
                   <Insets left="10.0" />
                </padding>
             </Label>
-           
-           
-          
-            <TextField fx:id="txtIsbn" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <TextField fx:id="txtPublisher_id" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <Label text="Price" GridPane.rowIndex="3">
                <GridPane.margin>
                   <Insets />
@@ -57,9 +49,12 @@
                   <Insets left="10.0" />
                </padding>
             </Label>
+            <TextField fx:id="txtTitle" GridPane.columnIndex="1" />
+            <TextField fx:id="txtIsbn" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="txtPublisher_id" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <TextField fx:id="txtPrice" GridPane.columnIndex="1" GridPane.rowIndex="3" />
        
-            <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="6">
+            <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
                <children>
                   <Button fx:id="btSave" mnemonicParsing="false" onAction="#onBtSaveAction" text="Save">
                      <HBox.margin>
@@ -69,6 +64,8 @@
                   <Button fx:id="btCancel" mnemonicParsing="false" onAction="#onBtCancelAction" text="Cancel" />
                </children>
             </HBox>
+            <Label fx:id="labelErrorTitle" textFill="#f80505" GridPane.columnIndex="2" />
+            <Label fx:id="labelErrorIsbn" textFill="#f80303" GridPane.columnIndex="2" GridPane.rowIndex="1" />
          </children>
       </GridPane>
    </children>

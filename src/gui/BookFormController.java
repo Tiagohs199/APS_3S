@@ -97,7 +97,7 @@ public class BookFormController implements Initializable{
 		Book obj = new Book();
 		ValidationException exception = new ValidationException("Validation error");
 		
-		obj.setIsbn(txtIsbn.getText());
+		//obj.setIsbn(txtIsbn.getText());
 		if(txtTitle.getText() == null || txtTitle.getText().trim().equals("")) {
 			exception.addError("name", "Field can't be empty");
 		}
@@ -144,8 +144,8 @@ public class BookFormController implements Initializable{
 	private void setErrorMessage(Map<String, String> error) {
 		Set<String> fields = error.keySet();
 		
-		if (fields.contains("name")) {
-			labelErrorTitle.setText(error.get("name"));
+		if (fields.contains("title")) {
+			labelErrorTitle.setText(error.get("title"));
 		}
 	}
 	

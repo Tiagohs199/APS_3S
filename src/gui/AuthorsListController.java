@@ -51,7 +51,7 @@ public class AuthorsListController implements Initializable, DataChangeListener{
 	
 	@FXML
 	private Button btNew;
-	
+
 	private ObservableList<Authors> obsList;
 	
 	
@@ -61,7 +61,6 @@ public class AuthorsListController implements Initializable, DataChangeListener{
 		Authors obj = new Authors();
 		createDialogForm(obj,"/gui/AuthorsForm.fxml", parentStage);
 	}
-	
 	public void setAuthorsService(AuthorsService Service) {
 		this.service = Service;
 	}
