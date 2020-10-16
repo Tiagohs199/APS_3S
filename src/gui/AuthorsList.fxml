@@ -22,7 +22,6 @@
       <ToolBar prefHeight="40.0" prefWidth="200.0">
         <items>
           <Button fx:id="btNew" mnemonicParsing="false" onAction="#onBtNewAction" text="New" />
-            <Button fx:id="btBack" mnemonicParsing="false" onAction="#onBtBackAction" text="Back" />
         </items>
       </ToolBar>
       <TableView fx:id="tableViewAuthors" prefHeight="200.0" prefWidth="200.0">
