@@ -32,7 +32,7 @@ import javafx.stage.Stage;
 import model.entities.Publisher;
 import model.services.PublisherService;
 
-public class PublisherListController implements Initializable {
+public class PublisherListController implements Initializable, DataChangeListener{
 
 	private PublisherService service;
 	@FXML
@@ -108,7 +108,7 @@ public class PublisherListController implements Initializable {
 			PublisherFormController controller = loader.getController();
 			controller.setPublisher(obj);
 			controller.setPublisherService(new PublisherService());
-			//controller.subscribeDataChangeListener(this);
+			controller.subscribeDataChangeListener(this);
 			controller.updateFormData();
 			
 			Stage dialogStage = new Stage();

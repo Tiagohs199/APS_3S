@@ -15,13 +15,17 @@ public class BookService {
 	}
 	
 	public void saveOrUpdate(Book obj) {
+		
+		System.out.println(obj);
 		if (obj.getIsbn() == null) {
-			dao.insert(obj);
 			System.out.println("inserindo");
+			dao.insert(obj);
+			
 		}
 		else {
-			dao.update(obj);
 			System.out.println("atualizando");
+			dao.update(obj);
+			
 		}
 	}
 	

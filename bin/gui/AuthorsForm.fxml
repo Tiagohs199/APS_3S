@@ -31,6 +31,7 @@
             <TextField fx:id="txtFname" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <Label text="First Name" GridPane.rowIndex="2" />
             <Label fx:id="labelErrorName" textFill="#e80f0f" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+            <Label fx:id="labelErrorFname" textFill="#ee0707" GridPane.columnIndex="2" GridPane.rowIndex="2" />
             <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
                <children>
                   <Button fx:id="btSave" mnemonicParsing="false" onAction="#onBtSaveAction" text="Save" />

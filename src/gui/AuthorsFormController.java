@@ -98,6 +98,9 @@ public class AuthorsFormController implements Initializable{
 		if(txtName.getText() == null || txtName.getText().trim().equals("")) {
 			exception.addError("name", "Field can't be empty");
 		}
+		if(txtFname.getText() == null || txtFname.getText().trim().equals("")) {
+			exception.addError("fname", "Field can't be empty");
+		}
 		obj.setName(txtName.getText());
 		obj.setFname(txtFname.getText());
 		
@@ -141,6 +144,9 @@ public class AuthorsFormController implements Initializable{
 		
 		if (fields.contains("name")) {
 			labelErrorName.setText(error.get("name"));
+		}
+		if (fields.contains("fname")) {
+			labelErrorFname.setText(error.get("fname"));
 		}
 	}
 }

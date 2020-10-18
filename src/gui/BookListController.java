@@ -8,6 +8,7 @@ import java.util.ResourceBundle;
 
 import application.Main;
 import db.DbIntegrityException;
+import gui.listeners.DataChangeListener;
 import gui.util.Alerts;
 import gui.util.Utils;
 import javafx.beans.property.ReadOnlyObjectWrapper;
@@ -32,7 +33,7 @@ import model.entities.Book;
 import model.entities.Publisher;
 import model.services.BookService;
 
-public class BookListController implements Initializable {
+public class BookListController implements Initializable, DataChangeListener{
 
 	private BookService service;
 	@FXML
@@ -62,7 +63,7 @@ public class BookListController implements Initializable {
 	
 	@FXML
 	public void onBtExitAction(ActionEvent event) {
-		Utils.currentStage(event).close();
+		
 	}
 	
 	@FXML
@@ -110,6 +111,7 @@ public class BookListController implements Initializable {
 			BookFormController controller = loader.getController();
 			controller.setBook(obj);
 			controller.setBookService(new BookService());
+			controller.subscribeDataChangeListener(this);
 			controller.updateFormData();
 			
 			Stage dialogStage = new Stage();

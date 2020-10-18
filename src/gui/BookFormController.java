@@ -44,7 +44,8 @@ public class BookFormController implements Initializable{
 	private Label labelErrorTitle;
 	@FXML
 	private Label labelErrorIsbn;
-	
+	@FXML
+	private Label labelErrorPrice;
 	@FXML
 	private Button btSave;
 	@FXML
@@ -95,13 +96,18 @@ public class BookFormController implements Initializable{
 	}
 	private Book getFormData() {
 		Book obj = new Book();
+		Publisher publisher = new Publisher();
 		ValidationException exception = new ValidationException("Validation error");
 		
-		//obj.setIsbn(txtIsbn.getText());
 		if(txtTitle.getText() == null || txtTitle.getText().trim().equals("")) {
+			exception.addError("title", "Field can't be empty");
+		}
+		if(txtIsbn.getText() == null || txtIsbn.getText().trim().equals("")) {
 			exception.addError("name", "Field can't be empty");
 		}
-		Publisher publisher = new Publisher();
+		if(txtPrice.getText() == null || txtPrice.getText().trim().equals("")) {
+			exception.addError("price", "Field can't be empty");
+		}
 		obj.setTitle(txtTitle.getText());
 		obj.setIsbn(txtIsbn.getText());
 		publisher.setId(Integer.valueOf(txtPublisher_id.getText()));
@@ -146,6 +152,12 @@ public class BookFormController implements Initializable{
 		
 		if (fields.contains("title")) {
 			labelErrorTitle.setText(error.get("title"));
+		}
+		if (fields.contains("name")) {
+			labelErrorTitle.setText(error.get("name"));
+		}
+		if (fields.contains("price")) {
+			labelErrorTitle.setText(error.get("price"));
 		}
 	}
 	

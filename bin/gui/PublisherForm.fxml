@@ -57,6 +57,8 @@
                   <Button fx:id="btCancel" mnemonicParsing="false" onAction="#onBtCancelAction" text="Cancel" />
                </children>
             </HBox>
+            <Label fx:id="labelErrorName" textFill="#f20303" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+            <Label fx:id="labelErrorUrl" textFill="#ee0707" GridPane.columnIndex="2" GridPane.rowIndex="2" />
          </children>
       </GridPane>
    </children>

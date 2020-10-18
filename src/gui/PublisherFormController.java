@@ -7,6 +7,8 @@ import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.Set;
 
+import com.sun.javafx.applet.ExperimentalExtensions;
+
 import db.DbException;
 import gui.listeners.DataChangeListener;
 import gui.util.Alerts;
@@ -97,6 +99,9 @@ public class PublisherFormController implements Initializable{
 		if(txtName.getText() == null || txtName.getText().trim().equals("")) {
 			exception.addError("name", "Field can't be empty");
 		}
+		if(txtUrl.getText() == null || txtUrl.getText().trim().equals("")) {
+			exception.addError("url", "Field cant't be empty");
+		}
 		obj.setName(txtName.getText());
 		obj.setUrl(txtUrl.getText());
 		
@@ -137,6 +142,9 @@ public class PublisherFormController implements Initializable{
 		
 		if (fields.contains("name")) {
 			labelErrorName.setText(error.get("name"));
+		}
+		if(fields.contains("url")) {
+			labelErrorUrl.setText(error.get("url"));
 		}
 	}
 }
