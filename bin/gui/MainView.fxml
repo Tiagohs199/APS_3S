@@ -24,7 +24,7 @@
                           <MenuItem fx:id="menuItemAuthorBook" mnemonicParsing="false" onAction="#onMenuItemAuthorBookAction" text="AuthorBook" />
                   </items>
                 </Menu>
-                <Menu mnemonicParsing="false" text="Help">
+                <Menu mnemonicParsing="false" text="About">
                   <items>
                     <MenuItem fx:id="menuItemAbout" mnemonicParsing="false" onAction="#onMenuItemAboutAction" text="About" />
                   </items>

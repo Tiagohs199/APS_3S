@@ -17,7 +17,7 @@ public class BookService {
 	public void saveOrUpdate(Book obj) {
 		
 		System.out.println(obj);
-		if (obj.getIsbn() == null) {
+		if (dao.findById(Integer.valueOf(obj.getIsbn())) == null) {
 			System.out.println("inserindo");
 			dao.insert(obj);
 			
