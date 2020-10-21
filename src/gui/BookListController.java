@@ -87,6 +87,8 @@ public class BookListController implements Initializable, DataChangeListener{
 		TableColumnPublisher_id.setCellValueFactory(new PropertyValueFactory<>("publisher"));
 		tableColumnPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
 		
+		
+		
 		Stage stage = (Stage) Main.getMainScene().getWindow();
 		tableViewBook.prefHeightProperty().bind(stage.heightProperty());
 		
