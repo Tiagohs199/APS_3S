@@ -24,9 +24,10 @@
                           <MenuItem fx:id="menuItemAuthorBook" mnemonicParsing="false" onAction="#onMenuItemAuthorBookAction" text="AuthorBook" />
                   </items>
                 </Menu>
-                <Menu mnemonicParsing="false" text="About">
+                <Menu mnemonicParsing="false" text="Info">
                   <items>
                     <MenuItem fx:id="menuItemAbout" mnemonicParsing="false" onAction="#onMenuItemAboutAction" text="About" />
+                        <MenuItem mnemonicParsing="false" text="History of Java" />
                   </items>
                 </Menu>
               </menus>

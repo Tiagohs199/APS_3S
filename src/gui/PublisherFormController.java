@@ -7,8 +7,6 @@ import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.Set;
 
-import com.sun.javafx.applet.ExperimentalExtensions;
-
 import db.DbException;
 import gui.listeners.DataChangeListener;
 import gui.util.Alerts;

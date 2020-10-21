@@ -13,7 +13,6 @@ import db.DbException;
 import db.DbIntegrityException;
 import model.dao.AuthorsDao;
 import model.entities.Authors;
-import model.entities.Book;
 
 public class AuthorsDaoJDBC implements AuthorsDao {
 
