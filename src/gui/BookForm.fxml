@@ -24,7 +24,6 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
@@ -58,7 +57,7 @@
             <Label fx:id="labelErrorIsbn" textFill="#f80303" GridPane.columnIndex="2" GridPane.rowIndex="1" />
             <Label fx:id="labelErrorPrice" textFill="#ee0909" GridPane.columnIndex="2" GridPane.rowIndex="3" />
        
-            <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
+            <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
                <children>
                   <Button fx:id="btSave" mnemonicParsing="false" onAction="#onBtSaveAction" text="Save">
                      <HBox.margin>
@@ -68,9 +67,7 @@
                   <Button fx:id="btCancel" mnemonicParsing="false" onAction="#onBtCancelAction" text="Cancel" />
                </children>
             </HBox>
-            <TextField fx:id="txtPublisher_id" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <ComboBox fx:id="comboBoxPublisher" onAction="#onComboBoxAction" prefHeight="25.0" prefWidth="282.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-            <Button fx:id="btAll" mnemonicParsing="false" onAction="#onBtAllAction" text="Button" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+            <ComboBox fx:id="comboBoxPublisher" onAction="#onComboBoxAction" prefHeight="25.0" prefWidth="282.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
          </children>
       </GridPane>
    </children>

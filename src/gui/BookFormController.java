@@ -25,11 +25,11 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.util.Callback;
-import model.dao.impl.BookDaoJDBC;
 import model.entities.Book;
 import model.entities.Publisher;
 import model.exceptions.ValidationException;
 import model.services.BookService;
+import model.services.PublisherService;
 
 public class BookFormController implements Initializable{
 	
@@ -37,14 +37,14 @@ public class BookFormController implements Initializable{
 	
 	private BookService service;
 	
+	private Publisher publi;
+	
 	private List<DataChangeListener> dataChangeListeners = new ArrayList<>();
 	
 	@FXML
 	private TextField txtTitle;
 	@FXML
 	private TextField txtIsbn;
-	@FXML
-	private TextField txtPublisher_id;
 	@FXML
 	private TextField txtPrice;
 	@FXML
@@ -59,21 +59,11 @@ public class BookFormController implements Initializable{
 	private Button btSave;
 	@FXML
 	private Button btCancel;
-	@FXML
-	private Button btAll;
-	
-	@FXML
-	public void onBtAllAction() {
-		for (Publisher person : comboBoxPublisher.getItems()) {
-			System.out.println(person);
-		}
-	}
 	
 	private ObservableList<Publisher> obsList;
 	
 	public void onComboBoxAction() {
-		Publisher publi = comboBoxPublisher.getSelectionModel().getSelectedItem();
-		System.out.println(publi);
+		publi = comboBoxPublisher.getSelectionModel().getSelectedItem();
 	}
 	
 	public void setBook(Book entity) {
@@ -120,7 +110,6 @@ public class BookFormController implements Initializable{
 	}
 	private Book getFormData() {
 		Book obj = new Book();
-		Publisher publisher = new Publisher();
 		ValidationException exception = new ValidationException("Validation error");
 		
 		if(txtTitle.getText() == null || txtTitle.getText().trim().equals("")) {
@@ -134,15 +123,14 @@ public class BookFormController implements Initializable{
 		}
 		obj.setTitle(txtTitle.getText());
 		obj.setIsbn(txtIsbn.getText());
-		publisher.setId(Integer.valueOf(txtPublisher_id.getText()));
-		obj.setPublisher(publisher);
+		publi.setId(Integer.valueOf(publi.getId()));
+		obj.setPublisher(publi);
 		obj.setPrice(Double.valueOf(txtPrice.getText()));
 		
 		
 		if(exception.getErrors().size() > 0) {
 			throw exception;
 		}
-		
 		return obj;
 	}
 
@@ -162,7 +150,7 @@ public class BookFormController implements Initializable{
 		Contraints.setTextFielsMaxLength(txtTitle, 20);
 		Contraints.setTextFieldDouble(txtPrice);
 		Contraints.setTextFielsMaxLength(txtIsbn, 30);
-		Contraints.setTextFieldInteger(txtPublisher_id);
+		//Contraints.setTextFieldInteger();
 		
 		
 	}
@@ -173,7 +161,7 @@ public class BookFormController implements Initializable{
 		txtTitle.setText(entity.getTitle());
 		txtPrice.setText(String.valueOf(entity.getPrice()));
 		txtIsbn.setText(entity.getIsbn());
-		txtPublisher_id.setText(String.valueOf(entity.getPublisher()));
+		//txtPublisher_id.setText(String.valueOf(publi));
 	}
 	private void setErrorMessage(Map<String, String> error) {
 		Set<String> fields = error.keySet();
@@ -189,19 +177,13 @@ public class BookFormController implements Initializable{
 		}
 	}
 	
-
-	
 	public void initializeCombo() {
-		BookDaoJDBC dao = new BookDaoJDBC(null);
-		Publisher pub = new Publisher();
 		
-	List<Publisher> list = new ArrayList<>();
+	PublisherService service = new PublisherService();
 	
-	list.add(new Publisher(13,"Maria","tratrerefd"));
-	list.add(new Publisher(45,"Carlos","tratrerefd"));
-	list.add(new Publisher(23,"Mateus","tratrerefd"));
+	List<Publisher> list = service.findAll();
 	
-	
+	 //list.forEach(aluno -> System.out.println(aluno));
 	
 	obsList = FXCollections.observableArrayList(list);
 	comboBoxPublisher.setItems(obsList);
@@ -217,64 +199,8 @@ public class BookFormController implements Initializable{
 	comboBoxPublisher.setButtonCell(factory.call(null));
 	
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 }
 
-//public class ViewController implements Initializable{
-//	
-//	@FXML
-//	private ComboBox<Person> comboBoxPerson;
-//	@FXML
-//	private Button btAll;
-//		
-//	private ObservableList<Person> obsList;
-//	
-//	@FXML
-//	public void onBtAllAction() {
-//		for (Person person : comboBoxPerson.getItems()) {
-//			System.out.println(person);
-//		}
-//	}
-//	
-//	
-//	
-//	public void onComboBoxPersonAction() {
-//		
-//		Person person = comboBoxPerson.getSelectionModel().getSelectedItem();
-//		System.out.println(person);
-//	}
-//	@Override
-//	public void initialize(URL location, ResourceBundle resources) {
-//		List<Person> list = new ArrayList<>();
-//		list.add(new Person(1,"Maria","maria@gmail.com"));
-//		list.add(new Person(2,"Alex","alex@gmail.com"));
-//		list.add(new Person(3,"Bob","bob@gmail.com"));
-//		
-//		obsList = FXCollections.observableArrayList(list);
-//		comboBoxPerson.setItems(obsList);
-//		
-//		Callback<ListView<Person>, ListCell<Person>> factory = lv -> new ListCell<Person>() {
-//			@Override
-//			protected void updateItem(Person item, boolean empty) {
-//				super.updateItem(item, empty);
-//				setText(empty ? "" : item.getName());
-//			}
-//		};
-//		comboBoxPerson.setCellFactory(factory);
-//		comboBoxPerson.setButtonCell(factory.call(null));
-//		
-//		
-//	}
 	
 	
 

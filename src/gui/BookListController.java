@@ -53,18 +53,11 @@ public class BookListController implements Initializable, DataChangeListener{
 	@FXML
 	private TableColumn<Book, Book> tableColumnRemove;
 	
-	@FXML
-	private Button btExit;
-	
+
 	@FXML
 	private Button btNew;
 	
 	private ObservableList<Book> obsList;
-	
-	@FXML
-	public void onBtExitAction(ActionEvent event) {
-		
-	}
 	
 	@FXML
 	public void onBtNewAction(ActionEvent event) {
@@ -86,8 +79,6 @@ public class BookListController implements Initializable, DataChangeListener{
 		TableColumnIsbn.setCellValueFactory(new PropertyValueFactory<>("isbn"));
 		TableColumnPublisher_id.setCellValueFactory(new PropertyValueFactory<>("publisher"));
 		tableColumnPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
-		
-		
 		
 		Stage stage = (Stage) Main.getMainScene().getWindow();
 		tableViewBook.prefHeightProperty().bind(stage.heightProperty());
