@@ -33,6 +33,8 @@ public class MainViewController implements Initializable {
 	private MenuItem menuItemBook;
 	@FXML
 	private MenuItem menuItemAbout;
+	@FXML
+	private MenuItem menuItemServion;
 
 	@FXML
 	public void onMenuItemAuthorsAction() {
@@ -69,6 +71,11 @@ public class MainViewController implements Initializable {
 	@FXML
 	public void onMenuItemAboutAction() {
 		loadView("/gui/About.fxml", x -> {
+		});
+	}
+	@FXML
+	public void onMenuItemVersionAction() {
+		loadView("/gui/Version.fxml", x -> {
 		});
 	}
 

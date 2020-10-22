@@ -16,16 +16,6 @@
             <Insets bottom="10.0" left="20.0" top="10.0" />
          </padding>
       </Label>
-      <TextArea prefHeight="188.0" prefWidth="386.0" text="Objetivo:&#10;
-      Este programa foi realizado como produto final do trabalho de APS do quarto semestre do curso de Ciência da Computação da faculdade 
-      UNIP SWIFT – Campinas -SP.&#10;__________________&#10;
-      Alunos:&#10;FERNANDO MORAES DOS SANTOS _____RA: F017524&#10;
-      ISABELLY KEISSA DE C CAETANO ______RA: N472FJ7&#10;
-      MARIA MARIANA CAGNONI FERREIRA __RA: N478GF0&#10;
-      TIAGO HENRIQUE SILVA ______________RA: D984586&#10;
-      VICTOR CAPELARI ___________________RA: D8874J9&#10;&#10;__________________&#10;
-      Finalidade:&#10;
-      Este Software está encarregado de proporcionar as funcionalidades de listar e mostrar todos os livros,
-       autores e editoras cadastradas, assim como incluir, editar e excluir livros, autores e editoras." />
+      <TextArea text="Objetivo:&#10;       Este programa foi realizado como produto final do trabalho de APS do quarto semestre do curso de Ciência da Computação da faculdade        &#10;UNIP SWIFT – Campinas -SP.__________________&#10;       Alunos:&#10;       FERNANDO MORAES DOS SANTOS _____RA: F017524   &#10;       ISABELLY KEISSA DE C CAETANO ______RA: N472FJ7&#10;       MARIA MARIANA CAGNONI FERREIRA __RA: N478GF0&#10;       TIAGO HENRIQUE SILVA ______________RA: D984586&#10;       VICTOR CAPELARI ___________________RA: D8874J9&#10;&#10;__________________&#10;       Finalidade:&#10;       Este Software está encarregado de proporcionar as funcionalidades de listar e mostrar todos os livros,        autores e editoras cadastradas, assim como incluir, editar e excluir livros, autores e editoras." />
    </children>
 </VBox>

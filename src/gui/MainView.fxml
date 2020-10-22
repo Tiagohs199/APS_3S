@@ -27,7 +27,7 @@
                 <Menu mnemonicParsing="false" text="Info">
                   <items>
                     <MenuItem fx:id="menuItemAbout" mnemonicParsing="false" onAction="#onMenuItemAboutAction" text="About" />
-                        <MenuItem mnemonicParsing="false" text="History of Java" />
+                        <MenuItem fx:id="menuItemServion" mnemonicParsing="false" onAction="#onMenuItemVersionAction" text="Version" />
                   </items>
                 </Menu>
               </menus>

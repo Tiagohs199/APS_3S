@@ -43,8 +43,8 @@ public class BookFormController implements Initializable{
 	private TextField txtTitle;
 	@FXML
 	private TextField txtIsbn;
-//	@FXML
-//	private TextField txtPublisher_id;
+	@FXML
+	private TextField txtPublisher_id;
 	@FXML
 	private TextField txtPrice;
 	@FXML
@@ -59,6 +59,15 @@ public class BookFormController implements Initializable{
 	private Button btSave;
 	@FXML
 	private Button btCancel;
+	@FXML
+	private Button btAll;
+	
+	@FXML
+	public void onBtAllAction() {
+		for (Publisher person : comboBoxPublisher.getItems()) {
+			System.out.println(person);
+		}
+	}
 	
 	private ObservableList<Publisher> obsList;
 	
@@ -125,7 +134,7 @@ public class BookFormController implements Initializable{
 		}
 		obj.setTitle(txtTitle.getText());
 		obj.setIsbn(txtIsbn.getText());
-		//publisher.setId(Integer.valueOf(txtPublisher_id.getText()));
+		publisher.setId(Integer.valueOf(txtPublisher_id.getText()));
 		obj.setPublisher(publisher);
 		obj.setPrice(Double.valueOf(txtPrice.getText()));
 		
@@ -145,36 +154,16 @@ public class BookFormController implements Initializable{
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
 		initializeNodes();
+		initializeCombo();
 	}
 	
 	private void initializeNodes() {
-		BookDaoJDBC dao = new BookDaoJDBC(null);
-		
-		Publisher pub = new Publisher();
-		
+	
 		Contraints.setTextFielsMaxLength(txtTitle, 20);
 		Contraints.setTextFieldDouble(txtPrice);
 		Contraints.setTextFielsMaxLength(txtIsbn, 30);
-		//Contraints.setTextFieldInteger(txtPublisher_id);
+		Contraints.setTextFieldInteger(txtPublisher_id);
 		
-		List<Publisher> list = new ArrayList<>();
-		
-		while(dao.findById(pub.getId()) != null) {
-		list.add(new Publisher() );
-		}
-		
-		obsList = FXCollections.observableArrayList(list);
-		comboBoxPublisher.setItems(obsList);
-		
-		Callback<ListView<Publisher>, ListCell<Publisher>> factory = lv -> new ListCell<Publisher>() {
-			@Override
-			protected void updateItem(Publisher item, boolean empty) {
-				super.updateItem(item, empty);
-				setText(empty ? "" : item.getName());
-			}
-		};
-		comboBoxPublisher.setCellFactory(factory);
-		comboBoxPublisher.setButtonCell(factory.call(null));
 		
 	}
 	public void updateFormData() {
@@ -184,7 +173,7 @@ public class BookFormController implements Initializable{
 		txtTitle.setText(entity.getTitle());
 		txtPrice.setText(String.valueOf(entity.getPrice()));
 		txtIsbn.setText(entity.getIsbn());
-		//txtPublisher_id.setText(String.valueOf(entity.getPublisher()));
+		txtPublisher_id.setText(String.valueOf(entity.getPublisher()));
 	}
 	private void setErrorMessage(Map<String, String> error) {
 		Set<String> fields = error.keySet();
@@ -199,6 +188,45 @@ public class BookFormController implements Initializable{
 			labelErrorTitle.setText(error.get("price"));
 		}
 	}
+	
+
+	
+	public void initializeCombo() {
+		BookDaoJDBC dao = new BookDaoJDBC(null);
+		Publisher pub = new Publisher();
+		
+	List<Publisher> list = new ArrayList<>();
+	
+	list.add(new Publisher(13,"Maria","tratrerefd"));
+	list.add(new Publisher(45,"Carlos","tratrerefd"));
+	list.add(new Publisher(23,"Mateus","tratrerefd"));
+	
+	
+	
+	obsList = FXCollections.observableArrayList(list);
+	comboBoxPublisher.setItems(obsList);
+	
+	Callback<ListView<Publisher>, ListCell<Publisher>> factory = lv -> new ListCell<Publisher>() {
+		@Override
+		protected void updateItem(Publisher item, boolean empty) {
+			super.updateItem(item, empty);
+			setText(empty ? "" : item.getName());
+		}
+	};
+	comboBoxPublisher.setCellFactory(factory);
+	comboBoxPublisher.setButtonCell(factory.call(null));
+	
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 }
 
