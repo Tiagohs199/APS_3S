@@ -51,18 +51,10 @@ public class PublisherListController implements Initializable, DataChangeListene
 	private TableColumn<Publisher, Publisher> tableColumnRemove;
 	
 	@FXML
-	private Button btExit;
-	
-	@FXML
 	private Button btNew;
 	
 	private ObservableList<Publisher> obsList;
-	
-	@FXML
-	public void onBtExitAction(ActionEvent event) {
-		Utils.currentStage(event).close();
-	}
-	
+
 	@FXML
 	public void onBtNewAction(ActionEvent event) {
 		Stage parentStage = Utils.currentStage(event);

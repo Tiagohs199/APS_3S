@@ -44,7 +44,7 @@ public class BookListController implements Initializable, DataChangeListener{
 	@FXML
 	private TableColumn<Book, String> TableColumnTitle;
 	@FXML
-	private TableColumn<Book, Integer> TableColumnIsbn;
+	private TableColumn<Book, String> TableColumnIsbn;
 	@FXML
 	private TableColumn<Book, Double> tableColumnPrice;
 	

@@ -37,7 +37,7 @@
                   <Insets left="10.0" />
                </padding>
             </Label>
-            <Label text="Publisher_id" GridPane.rowIndex="2">
+            <Label text="Publisher" GridPane.rowIndex="2">
                <padding>
                   <Insets left="10.0" />
                </padding>

@@ -22,7 +22,7 @@ public class BookDaoJDBC implements BookDao {
 		this.conn = conn;
 	}
 	@Override
-	public Book findById(Integer id) {
+	public Book findById(String id) {
 		PreparedStatement st = null;
 		ResultSet rs = null;
 		try {
@@ -30,7 +30,7 @@ public class BookDaoJDBC implements BookDao {
 					"SELECT  * FROM Books "
 					+ "WHERE isbn = ?");
 			
-			st.setInt(1, id);
+			st.setString(1, id);
 			rs = st.executeQuery();
 			if (rs.next()) {
 				Publisher publisher = instantiatePublisher(rs);
@@ -98,7 +98,6 @@ public class BookDaoJDBC implements BookDao {
 
 					
 			int rowsAffected = st.executeUpdate();
-			System.out.println(rowsAffected+"executeUpdate");
 			
 			if (rowsAffected > 0) {
 				ResultSet rs = st.getGeneratedKeys();

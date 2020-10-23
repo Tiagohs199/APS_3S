@@ -13,22 +13,15 @@ public class BookService {
 	public List<Book> findAll(){
 		return dao.findAll();
 	}
-	
 	public void saveOrUpdate(Book obj) {
 		
-		System.out.println(obj);
-		if (dao.findById(Integer.valueOf(obj.getIsbn())) == null) {
-			System.out.println("inserindo");
+		if (dao.findById(obj.getIsbn()) == null) {
 			dao.insert(obj);
-			
 		}
 		else {
-			System.out.println("atualizando");
 			dao.update(obj);
-			
 		}
 	}
-	
 	public void remove(Book obj) {
 		dao.deleteById(obj.getIsbn());
 	}

@@ -149,7 +149,7 @@ public class BookFormController implements Initializable{
 	
 		Contraints.setTextFielsMaxLength(txtTitle, 20);
 		Contraints.setTextFieldDouble(txtPrice);
-		Contraints.setTextFielsMaxLength(txtIsbn, 30);
+		Contraints.setTextFielsMaxLength(txtIsbn, 13);
 		//Contraints.setTextFieldInteger();
 		
 		

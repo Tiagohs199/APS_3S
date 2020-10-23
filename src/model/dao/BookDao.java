@@ -9,7 +9,7 @@ public interface BookDao {
 	void insert(Book obj);
 	void update(Book obj);
 	void deleteById(String string);
-	Book findById(Integer id);
+	Book findById(String id);
 	List<Book> findAll();
 	
 }
