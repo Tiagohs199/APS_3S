@@ -54,6 +54,8 @@ public class BookFormController implements Initializable{
 	@FXML
 	private Label labelErrorPrice;
 	@FXML
+	private Label labelErrorComboBox;
+	@FXML
 	private ComboBox<Publisher> comboBoxPublisher;
 	@FXML
 	private Button btSave;
@@ -110,21 +112,27 @@ public class BookFormController implements Initializable{
 	}
 	private Book getFormData() {
 		Book obj = new Book();
+		Publisher pub = new Publisher();
 		ValidationException exception = new ValidationException("Validation error");
+		
 		
 		if(txtTitle.getText() == null || txtTitle.getText().trim().equals("")) {
 			exception.addError("title", "Field can't be empty");
 		}
 		if(txtIsbn.getText() == null || txtIsbn.getText().trim().equals("")) {
-			exception.addError("name", "Field can't be empty");
+			exception.addError("isbn", "Field can't be empty");
+		}
+		if(comboBoxPublisher.getSelectionModel().getSelectedItem() == null ){
+			exception.addError("publisher", "Field can't be empty");
 		}
 		if(txtPrice.getText() == null || txtPrice.getText().trim().equals("")) {
 			exception.addError("price", "Field can't be empty");
 		}
+		
 		obj.setTitle(txtTitle.getText());
-		obj.setIsbn(txtIsbn.getText());
-		publi.setId(Integer.valueOf(publi.getId()));
-		obj.setPublisher(publi);
+		obj.setIsbn((txtIsbn.getText()));
+		pub = comboBoxPublisher.getSelectionModel().getSelectedItem();
+		obj.setPublisher(pub);
 		obj.setPrice(Double.valueOf(txtPrice.getText()));
 		
 		
@@ -148,10 +156,8 @@ public class BookFormController implements Initializable{
 	private void initializeNodes() {
 	
 		Contraints.setTextFielsMaxLength(txtTitle, 20);
-		Contraints.setTextFieldDouble(txtPrice);
 		Contraints.setTextFielsMaxLength(txtIsbn, 13);
-		//Contraints.setTextFieldInteger();
-		
+		Contraints.setTextFieldDouble(txtPrice);
 		
 	}
 	public void updateFormData() {
@@ -159,9 +165,10 @@ public class BookFormController implements Initializable{
 			throw new IllegalStateException("Entity was null");
 		}
 		txtTitle.setText(entity.getTitle());
-		txtPrice.setText(String.valueOf(entity.getPrice()));
 		txtIsbn.setText(entity.getIsbn());
-		//txtPublisher_id.setText(String.valueOf(publi));
+		comboBoxPublisher.getSelectionModel().getSelectedItem();
+		txtPrice.setText(String.valueOf(entity.getPrice()));
+		
 	}
 	private void setErrorMessage(Map<String, String> error) {
 		Set<String> fields = error.keySet();
@@ -169,11 +176,14 @@ public class BookFormController implements Initializable{
 		if (fields.contains("title")) {
 			labelErrorTitle.setText(error.get("title"));
 		}
-		if (fields.contains("name")) {
-			labelErrorTitle.setText(error.get("name"));
+		if (fields.contains("isbn")) {
+			labelErrorIsbn.setText(error.get("isbn"));
+		}
+		if(fields.contains("publisher")) {
+			labelErrorComboBox.setText(error.get("publisher"));
 		}
 		if (fields.contains("price")) {
-			labelErrorTitle.setText(error.get("price"));
+			labelErrorPrice.setText(error.get("price"));
 		}
 	}
 	
