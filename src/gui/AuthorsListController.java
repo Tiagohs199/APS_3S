@@ -34,20 +34,19 @@ import model.services.AuthorsService;
 
 public class AuthorsListController implements Initializable, DataChangeListener{
 	
-	private AuthorsService service;
+	private AuthorsService service; // acoplamento forte
 	@FXML
-	private TableView<Authors> tableViewAuthors;
+	private TableView<Authors> tableViewAuthors; // referencia para o table view
 	@FXML
-	private TableColumn<Authors, Integer> tableColumnId;
+	private TableColumn<Authors, Integer> tableColumnId; // referencia para a coluna id
 	@FXML
-	private TableColumn<Authors, String> tableColumnName;
+	private TableColumn<Authors, String> tableColumnName; // referencia para a coluna name
 	@FXML
-	private TableColumn<Authors, String> tableColumnfName;
+	private TableColumn<Authors, String> tableColumnfName; // referencia para a coluna fName
 	@FXML
-	private TableColumn<Authors, Authors> tableColumnEdit;
+	private TableColumn<Authors, Authors> tableColumnEdit; // referencia para a coluna edit
 	@FXML
-	private TableColumn<Authors, Authors> tableColumnRemove;
-	
+	private TableColumn<Authors, Authors> tableColumnRemove; // referencia para a coluna remove
 	
 	@FXML
 	private Button btNew;
@@ -61,7 +60,7 @@ public class AuthorsListController implements Initializable, DataChangeListener{
 		Authors obj = new Authors();
 		createDialogForm(obj,"/gui/AuthorsForm.fxml", parentStage);
 	}
-	public void setAuthorsService(AuthorsService Service) {
+	public void setAuthorsService(AuthorsService Service) { //dependencia manual
 		this.service = Service;
 	}
 
@@ -76,16 +75,16 @@ public class AuthorsListController implements Initializable, DataChangeListener{
 		tableColumnfName.setCellValueFactory(new PropertyValueFactory<>("fname"));
 		
 		Stage stage = (Stage) Main.getMainScene().getWindow();
-		tableViewAuthors.prefHeightProperty().bind(stage.heightProperty());
+		tableViewAuthors.prefHeightProperty().bind(stage.heightProperty()); // ajusta a table view a tela principal
 		
 	}
-	public void updateTableView() {
+	public void updateTableView() { // metodo responsavel por acessar os dados e add na observable list
 		if(service == null) {
 			throw new IllegalStateException("Service was null");
 		}
-		List<Authors> list = service.findAll();
-		obsList = FXCollections.observableArrayList(list);
-		tableViewAuthors.setItems(obsList);
+		List<Authors> list = service.findAll(); // carrega lista com dados do banco
+		obsList = FXCollections.observableArrayList(list); // carrega o obslist com os dados da list
+		tableViewAuthors.setItems(obsList); // chama o table view e carrega na tela
 		initEditButtons();
 		initRemoveButtons();
 		

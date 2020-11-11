@@ -73,11 +73,7 @@ public class AuthorBookListController implements Initializable {
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource(absoluteName));
 			Pane pane = loader.load();
-			
-//			AuthorBookFormController controller = loader.getController();
-//			controller.setAuthorBook(obj);
-//			controller.setAuthorBookService(new AuthorBookService());
-//			controller.updateFormData();
+
 			
 			Stage dialogStage = new Stage();
 			dialogStage.setTitle("Enter AuthorBook data");
