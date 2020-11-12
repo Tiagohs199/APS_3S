@@ -166,15 +166,12 @@ public class AuthorBookDaoJDBC implements AuthorBookDao {
 	private Authors instantiateAuthors(ResultSet rs) throws SQLException {
 		Authors authors = new Authors();
 		authors.setId(rs.getInt("author_id"));
-//		authors.setName(rs.getString("name"));
-//		authors.setFname(rs.getString("fname"));
-		
+
 		return authors;
 	}
 	private Book instantiateBook(ResultSet rs) throws SQLException {
 		Book book = new Book();
 		book.setIsbn(rs.getString("isbn"));
-		
 		
 		return book;
 	}

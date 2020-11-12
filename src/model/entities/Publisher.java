@@ -10,8 +10,6 @@ public class Publisher implements Serializable {
 	private String name;
 	private String url;
 
-	
-	
 	public Publisher() {
 	}
 
@@ -19,7 +17,6 @@ public class Publisher implements Serializable {
 		this.id = id;
 		this.name = name;
 		this.url = url;
-		
 	}
 
 	public Integer getId() {
@@ -75,6 +72,4 @@ public class Publisher implements Serializable {
 	public String toString() {
 		return String.valueOf(id);
 	}
-	
-
 }

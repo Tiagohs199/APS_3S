@@ -10,8 +10,6 @@ public class AuthorBook implements Serializable {
 	private Book isbn;
 	private Authors author_id;
 
-	
-	
 	public AuthorBook() {
 	}
 
@@ -19,8 +17,8 @@ public class AuthorBook implements Serializable {
 		this.seq_no = id;
 		this.isbn = isbn;
 		this.author_id = a_id;
-		
 	}
+	
 	public Integer getSeq_no() {
 		return seq_no;
 	}
@@ -74,6 +72,4 @@ public class AuthorBook implements Serializable {
 	public String toString() {
 		return String.valueOf(seq_no);
 	}
-	
-
 }

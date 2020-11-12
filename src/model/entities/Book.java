@@ -11,7 +11,6 @@ public class Book implements Serializable {
 	private Publisher publisher;
 	private Double price;
 
-	
 	public Book() {
 	}
 

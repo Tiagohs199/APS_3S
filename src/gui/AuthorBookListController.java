@@ -28,7 +28,6 @@ public class AuthorBookListController implements Initializable {
 	private AuthorBookService service;
 	@FXML
 	private TableView<AuthorBook> tableViewAuthorBook;
-	
 	@FXML
 	private TableColumn<AuthorBook, Integer> TableColumnSeq_no;
 	@FXML
@@ -38,7 +37,6 @@ public class AuthorBookListController implements Initializable {
 	
 	private ObservableList<AuthorBook> obsList;
 	
-	
 	public void setAuthorBookService(AuthorBookService service) {
 		this.service = service;
 	}
@@ -47,7 +45,6 @@ public class AuthorBookListController implements Initializable {
 	public void initialize(URL url, ResourceBundle rb) {
 		initializeAuthorBookNodes();
 	}
-	
 	private void initializeAuthorBookNodes() {
 		TableColumnSeq_no.setCellValueFactory(new PropertyValueFactory<>("seq_no"));
 		TableColumnAuthor_id.setCellValueFactory(new PropertyValueFactory<>("author_id"));
@@ -58,7 +55,6 @@ public class AuthorBookListController implements Initializable {
 		tableViewAuthorBook.prefHeightProperty().bind(stage.heightProperty());
 		
 	}
-
 	public void updateTableView() {
 		if(service == null) {
 			throw new IllegalStateException("Service was null");
@@ -68,7 +64,6 @@ public class AuthorBookListController implements Initializable {
 		tableViewAuthorBook.setItems(obsList);
 		
 	}
-	
 	public void createDialogForm(AuthorBook obj, String absoluteName, Stage parentStage) {
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource(absoluteName));

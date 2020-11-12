@@ -110,6 +110,7 @@ public class BookFormController implements Initializable{
 		}
 		
 	}
+	
 	private Book getFormData() {
 		Book obj = new Book();
 		Publisher pub = new Publisher();
@@ -160,6 +161,7 @@ public class BookFormController implements Initializable{
 		Contraints.setTextFieldDouble(txtPrice);
 		
 	}
+	
 	public void updateFormData() {
 		if(entity == null) {
 			throw new IllegalStateException("Entity was null");
@@ -170,6 +172,7 @@ public class BookFormController implements Initializable{
 		txtPrice.setText(String.valueOf(entity.getPrice()));
 		
 	}
+	
 	private void setErrorMessage(Map<String, String> error) {
 		Set<String> fields = error.keySet();
 		
@@ -192,8 +195,6 @@ public class BookFormController implements Initializable{
 	PublisherService service = new PublisherService();
 	
 	List<Publisher> list = service.findAll();
-	
-	 //list.forEach(aluno -> System.out.println(aluno));
 	
 	obsList = FXCollections.observableArrayList(list);
 	comboBoxPublisher.setItems(obsList);

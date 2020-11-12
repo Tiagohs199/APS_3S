@@ -104,7 +104,6 @@ public class BookDaoJDBC implements BookDao {
 				if (rs.next()) {
 					String id = rs.getString(1);
 					obj.setIsbn(id);
-					System.out.println(id);
 				}
 			}
 			else {
