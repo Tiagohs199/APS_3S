@@ -120,21 +120,23 @@ public class BookFormController implements Initializable{
 		if(txtTitle.getText() == null || txtTitle.getText().trim().equals("")) {
 			exception.addError("title", "Field can't be empty");
 		}
+		obj.setTitle(txtTitle.getText());
+		
 		if(txtIsbn.getText() == null || txtIsbn.getText().trim().equals("")) {
 			exception.addError("isbn", "Field can't be empty");
 		}
+		obj.setIsbn((txtIsbn.getText()));
+		
 		if(comboBoxPublisher.getSelectionModel().getSelectedItem() == null ){
 			exception.addError("publisher", "Field can't be empty");
 		}
+		pub = comboBoxPublisher.getSelectionModel().getSelectedItem();
+		obj.setPublisher(pub);
+		
 		if(txtPrice.getText() == null || txtPrice.getText().trim().equals("")) {
 			exception.addError("price", "Field can't be empty");
 		}
-		
-		obj.setTitle(txtTitle.getText());
-		obj.setIsbn((txtIsbn.getText()));
-		pub = comboBoxPublisher.getSelectionModel().getSelectedItem();
-		obj.setPublisher(pub);
-		obj.setPrice(Double.valueOf(txtPrice.getText()));
+		obj.setPrice(Utils.tryParseToDouble(txtPrice.getText()));
 		
 		
 		if(exception.getErrors().size() > 0) {
@@ -176,18 +178,13 @@ public class BookFormController implements Initializable{
 	private void setErrorMessage(Map<String, String> error) {
 		Set<String> fields = error.keySet();
 		
-		if (fields.contains("title")) {
-			labelErrorTitle.setText(error.get("title"));
-		}
-		if (fields.contains("isbn")) {
-			labelErrorIsbn.setText(error.get("isbn"));
-		}
-		if(fields.contains("publisher")) {
-			labelErrorComboBox.setText(error.get("publisher"));
-		}
-		if (fields.contains("price")) {
-			labelErrorPrice.setText(error.get("price"));
-		}
+			labelErrorTitle.setText(fields.contains("title") ? error.get("title") : "");
+		
+			labelErrorIsbn.setText(fields.contains("isbn") ? error.get("isbn") : "");
+		
+			labelErrorComboBox.setText(fields.contains("publisher") ? error.get("publisher") : "");
+		
+			labelErrorPrice.setText(fields.contains("price") ? error.get("price") : "");
 	}
 	
 	public void initializeCombo() {

@@ -142,11 +142,9 @@ public class AuthorsFormController implements Initializable{
 	private void setErrorMessage(Map<String, String> error) {
 		Set<String> fields = error.keySet();
 		
-		if (fields.contains("name")) {
-			labelErrorName.setText(error.get("name"));
-		}
-		if (fields.contains("fname")) {
-			labelErrorFname.setText(error.get("fname"));
-		}
+		labelErrorName.setText(fields.contains("name") ? error.get("name") : "");
+		
+		labelErrorFname.setText(fields.contains("fname") ? error.get("fname") : "");
+		
 	}
 }

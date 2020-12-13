@@ -138,11 +138,8 @@ public class PublisherFormController implements Initializable{
 	private void setErrorMessage(Map<String, String> error) {
 		Set<String> fields = error.keySet();
 		
-		if (fields.contains("name")) {
-			labelErrorName.setText(error.get("name"));
-		}
-		if(fields.contains("url")) {
-			labelErrorUrl.setText(error.get("url"));
-		}
+		labelErrorName.setText(fields.contains("name") ? error.get("name") : "");
+	
+		labelErrorUrl.setText(fields.contains("url") ? error.get("url") : "");
 	}
 }
